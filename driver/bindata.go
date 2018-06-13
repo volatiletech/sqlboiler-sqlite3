@@ -83,7 +83,7 @@ func templates_testSingletonSqlite3_main_testTpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "templates_test/singleton/sqlite3_main_test.tpl", size: 1665, mode: os.FileMode(420), modTime: time.Unix(1528911824, 0)}
+	info := bindataFileInfo{name: "templates_test/singleton/sqlite3_main_test.tpl", size: 0, mode: os.FileMode(0), modTime: time.Unix(0, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

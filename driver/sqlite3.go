@@ -14,7 +14,7 @@ import (
 	"github.com/volatiletech/sqlboiler/importers"
 )
 
-//go:generate go-bindata -pkg driver -prefix override override/...
+//go:generate go-bindata -nometadata -pkg driver -prefix override override/...
 
 func init() {
 	drivers.RegisterFromInit("sqlite3", &SQLiteDriver{})
