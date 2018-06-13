@@ -398,8 +398,10 @@ func (SQLiteDriver) TranslateColumnType(c drivers.Column) drivers.Column {
 			c.Type = "null.Bytes"
 		case "FLOAT":
 			c.Type = "null.Float32"
-		case "REAL", "DOUBLE", "DOUBLE PRECISION", "NUMERIC", "DECIMAL":
+		case "REAL", "DOUBLE", "DOUBLE PRECISION":
 			c.Type = "null.Float64"
+		case "NUMERIC", "DECIMAL":
+			c.Type = "types.NullDecimal"
 		case "BOOLEAN":
 			c.Type = "null.Bool"
 		case "DATE", "DATETIME":
@@ -427,8 +429,10 @@ func (SQLiteDriver) TranslateColumnType(c drivers.Column) drivers.Column {
 			c.Type = "[]byte"
 		case "FLOAT":
 			c.Type = "float32"
-		case "REAL", "DOUBLE", "DOUBLE PRECISION", "NUMERIC", "DECIMAL":
+		case "REAL", "DOUBLE", "DOUBLE PRECISION":
 			c.Type = "float64"
+		case "NUMERIC", "DECIMAL":
+			c.Type = "types.Decimal"
 		case "BOOLEAN":
 			c.Type = "bool"
 		case "DATE", "DATETIME":
@@ -516,6 +520,12 @@ func (SQLiteDriver) Imports() (col importers.Collection, err error) {
 
 		"time.Time": {
 			Standard: importers.List{`"time"`},
+		},
+		"types.Decimal": {
+			ThirdParty: importers.List{`"github.com/volatiletech/sqlboiler/types"`},
+		},
+		"types.NullDecimal": {
+			ThirdParty: importers.List{`"github.com/volatiletech/sqlboiler/types"`},
 		},
 	}
 	return col, err
