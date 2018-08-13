@@ -118,21 +118,23 @@ func (s SQLiteDriver) Close() {
 // TableNames connects to the sqlite database and
 // retrieves all table names from sqlite_master
 func (s SQLiteDriver) TableNames(schema string, whitelist, blacklist []string) ([]string, error) {
-	query := `SELECT name FROM sqlite_master WHERE type='table';`
+	query := `SELECT name FROM sqlite_master WHERE type='table'`
 	args := []interface{}{}
 
 	if len(whitelist) > 0 {
 		tables := drivers.TablesFromList(whitelist)
 		if len(tables) > 0 {
-			query += fmt.Sprintf(" and table_name in (%s);", strings.Repeat(",?", len(tables))[1:])
+			query += fmt.Sprintf(" and tbl_name in (%s)", strings.Repeat(",?", len(tables))[1:])
 			for _, w := range tables {
 				args = append(args, w)
 			}
 		}
-	} else if len(blacklist) > 0 {
+	}
+
+    if len(blacklist) > 0 {
 		tables := drivers.TablesFromList(blacklist)
 		if len(tables) > 0 {
-			query += fmt.Sprintf(" and table_name not in (%s);", strings.Repeat(",?", len(tables))[1:])
+			query += fmt.Sprintf(" and tbl_name not in (%s)", strings.Repeat(",?", len(tables))[1:])
 			for _, b := range tables {
 				args = append(args, b)
 			}
