@@ -131,7 +131,7 @@ func (s SQLiteDriver) TableNames(schema string, whitelist, blacklist []string) (
 		}
 	}
 
-    if len(blacklist) > 0 {
+	if len(blacklist) > 0 {
 		tables := drivers.TablesFromList(blacklist)
 		if len(tables) > 0 {
 			query += fmt.Sprintf(" and tbl_name not in (%s)", strings.Repeat(",?", len(tables))[1:])
@@ -270,6 +270,13 @@ func (s SQLiteDriver) Columns(schema, tableName string, whitelist, blacklist []s
 		blackColumns = drivers.ColumnsFromList(blacklist, tableName)
 	}
 
+	nPkeys := 0
+	for _, column := range tinfo {
+		if column.Pk == 1 {
+			nPkeys++
+		}
+	}
+
 ColumnLoop:
 	for _, column := range tinfo {
 		if len(whitelist) != 0 {
@@ -310,6 +317,14 @@ ColumnLoop:
 		if column.DefaultValue != nil && *column.DefaultValue != "NULL" {
 			bColumn.Default = *column.DefaultValue
 		} else if autoIncr {
+			bColumn.Default = "auto_increment"
+		} else if nPkeys == 1 && column.Pk == 1 && bColumn.FullDBType == "INTEGER" {
+			// This is special behavior noted in the sqlite documentation.
+			// An integer primary key becomes synonymous with the internal ROWID
+			// and acts as an auto incrementing value. Although there's important
+			// differences between using the keyword AUTOINCREMENT and this inferred
+			// version, they don't matter here so just masquerade as the same thing as
+			// above.
 			bColumn.Default = "auto_increment"
 		}
 
