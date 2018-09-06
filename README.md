@@ -27,7 +27,7 @@ It's configuration keys in sqlboiler are simple:
 # sqlite3 is being run can change.
 # For example generation time and model test time.
 [sqlite3]
-db_name = "/path/to/file"
+dbname = "/path/to/file"
 ```
 
 ## Development
