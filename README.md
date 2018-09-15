@@ -5,9 +5,9 @@ therefore is not in the main tree.
 
 ## Installation
 
-First install the `database/sql` sqlite3 driver https://github.com/mattn/sqlite3  
+First install the `database/sql` sqlite3 driver https://github.com/mattn/go-sqlite3  
 This requires cgo and the sqlite3 .so/.dll installed. Refer to the installation
-of the `github.com/mattn/sqlite3` to complete this step.
+of the `github.com/mattn/go-sqlite3` to complete this step.
 
 Installation is simple, just use `go get`. Once the binary is in
 your path `sqlboiler` will be able to use it if you run it with the
