@@ -14,7 +14,7 @@ import (
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/volatiletech/sqlboiler/drivers"
+	"github.com/volatiletech/sqlboiler/v4/drivers"
 )
 
 var (
