@@ -5,8 +5,8 @@ therefore is not in the main tree.
 
 ## Installation
 
-First install the `database/sql` sqlite3 driver https://github.com/mattn/go-sqlite3  
-This requires cgo and the sqlite3 .so/.dll installed. Refer to the installation
+This package depends on the `database/sql` sqlite3 driver https://github.com/mattn/go-sqlite3,
+which requires cgo and the sqlite3 .so/.dll installed. Refer to the installation
 of the `github.com/mattn/go-sqlite3` to complete this step.
 
 Installation is simple, just use `go get`. Once the binary is in
@@ -14,8 +14,12 @@ your path `sqlboiler` will be able to use it if you run it with the
 driver name `sqlite3`.
 
 ```bash
+# Note: You must run this outside of your Go module directory. This must be done
+# in GOPATH mode to get the correct result. If you'd like to pin the version
+# manually via Go modules you can attempt other installation instructions.
+
 # Install sqlboiler sqlite3 driver
-go get -u github.com/volatiletech/sqlboiler-sqlite3
+go get -u -t github.com/volatiletech/sqlboiler-sqlite3
 # Generate models
 sqlboiler sqlite3
 ```
