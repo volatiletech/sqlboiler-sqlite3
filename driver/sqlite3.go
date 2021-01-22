@@ -308,6 +308,11 @@ ColumnLoop:
 
 		// also get a correct information for Unique
 		for _, idx := range idxs {
+			// A unique index with multiple columns does not make
+			// the individual column unique
+			if len(idx.Columns) > 1 {
+				continue
+			}
 			for _, name := range idx.Columns {
 				if name == column.Name {
 					bColumn.Unique = idx.Unique > 0
