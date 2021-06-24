@@ -429,6 +429,8 @@ func (SQLiteDriver) TranslateColumnType(c drivers.Column) drivers.Column {
 			c.Type = "null.Bool"
 		case "DATE", "DATETIME":
 			c.Type = "null.Time"
+		case "JSON":
+			c.Type = "null.JSON"
 
 		default:
 			c.Type = "null.String"
@@ -460,6 +462,8 @@ func (SQLiteDriver) TranslateColumnType(c drivers.Column) drivers.Column {
 			c.Type = "bool"
 		case "DATE", "DATETIME":
 			c.Type = "time.Time"
+		case "JSON":
+			c.Type = "types.JSON"
 
 		default:
 			c.Type = "string"
@@ -549,6 +553,13 @@ func (SQLiteDriver) Imports() (col importers.Collection, err error) {
 		},
 		"types.NullDecimal": {
 			ThirdParty: importers.List{`"github.com/volatiletech/sqlboiler/v4/types"`},
+		},
+
+		"types.JSON": {
+			ThirdParty: importers.List{`"github.com/volatiletech/sqlboiler/v4/types"`},
+		},
+		"null.JSON": {
+			ThirdParty: importers.List{`"github.com/volatiletech/null/v8"`},
 		},
 	}
 	return col, err
