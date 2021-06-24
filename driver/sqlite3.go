@@ -554,6 +554,13 @@ func (SQLiteDriver) Imports() (col importers.Collection, err error) {
 		"types.NullDecimal": {
 			ThirdParty: importers.List{`"github.com/volatiletech/sqlboiler/v4/types"`},
 		},
+
+		"types.JSON": {
+			ThirdParty: importers.List{`"github.com/volatiletech/sqlboiler/v4/types"`},
+		},
+		"null.JSON": {
+			ThirdParty: importers.List{`"github.com/volatiletech/null/v8"`},
+		},
 	}
 	return col, err
 }
