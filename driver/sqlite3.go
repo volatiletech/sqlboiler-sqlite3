@@ -82,7 +82,7 @@ func (s SQLiteDriver) Assemble(config drivers.Config) (dbinfo *drivers.DBInfo, e
 
 			UseSchema:         false,
 			UseDefaultKeyword: true,
-			UseLastInsertID:   true,
+			UseLastInsertID:   false,
 		},
 	}
 
