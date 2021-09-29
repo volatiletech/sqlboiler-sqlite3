@@ -315,7 +315,8 @@ ColumnLoop:
 			}
 			for _, name := range idx.Columns {
 				if name == column.Name {
-					bColumn.Unique = idx.Unique > 0
+					// A column is unique if it has a unique non-partial index
+					bColumn.Unique = idx.Unique > 0 && idx.Partial == 0
 				}
 			}
 		}
