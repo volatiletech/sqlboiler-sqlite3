@@ -71,7 +71,33 @@ func TestDriver(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if bytes.Compare(want, got) != 0 {
+	if !bytes.Equal(want, got) {
 		t.Errorf("want:\n%s\ngot:\n%s\n", want, got)
+	}
+
+	bg, err := json.MarshalIndent(info, "", " ")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ioutil.WriteFile("../compare_have.json", bg, 0644)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var wnt interface{}
+	err = json.Unmarshal(want, &wnt)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	bw, err := json.MarshalIndent(wnt, "", " ")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ioutil.WriteFile("../compare_want.json", bw, 0644)
+	if err != nil {
+		t.Fatal(err)
 	}
 }
