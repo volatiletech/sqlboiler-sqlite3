@@ -476,7 +476,31 @@ func (SQLiteDriver) TranslateColumnType(c drivers.Column) drivers.Column {
 
 // Imports returns important imports for the driver
 func (SQLiteDriver) Imports() (col importers.Collection, err error) {
+	col.All = importers.Set{
+		Standard: importers.List{
+			`"strconv"`,
+		},
+	}
+
+	col.Singleton = importers.Map{
+		"sqlite_upsert": {
+			Standard: importers.List{
+				`"fmt"`,
+				`"strings"`,
+			},
+			ThirdParty: importers.List{
+				`"github.com/volatiletech/strmangle"`,
+				`"github.com/volatiletech/sqlboiler/v4/drivers"`,
+			},
+		},
+	}
+
 	col.TestSingleton = importers.Map{
+		"sqlite3_suites_test": {
+			Standard: importers.List{
+				`"testing"`,
+			},
+		},
 		"sqlite3_main_test": {
 			Standard: importers.List{
 				`"database/sql"`,
